@@ -1,0 +1,27 @@
+version: "3"
+
+services:
+  server:
+    container_name: MOVIE-API
+    build: .
+    volumes:
+      - ./:/src
+      - ./node_modules:/src/node_modules
+    environment:
+      NODE_ENV: dev
+    depends_on:
+      - db
+    links:
+      - db
+    ports:
+      - "9000:9000"
+
+  db:
+    image: mongo
+    container_name: MONGODB
+    restart: always
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root
+    ports:
+      - "27017:27017"
