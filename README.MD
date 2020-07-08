@@ -1,3 +1,20 @@
+# Rodando o Porjeto
+
+Utilizei o Make para abreviar os comandos do docker-compose e facilitar o desenvolvimento e testes:
+
+- **`make u`** equivale a `docker-compose up -d`  
+- **`make d`** equivale a `docker-compose down`  
+- **`make l`** equivale a `docker-compose logs`  
+- **`make r`** equivale a `docker-compose down && docker-compose up -d --build`  
+- **`make db`** equivale a `docker-compose up -d db`
+- **`make test`** equivale a `docker-compose up -d db && yarn test`
+
+
+Também estou disponibilizando a collection do Postman para facilitar os testes/avaliação:  
+  [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/9b7d05e4f19cb80b48bb)
+
+
+
 # Desafio de Backend
 
 ## Sobre o Desafio

@@ -7,6 +7,14 @@ const SuccessMessages = {
             message: "Movie created successfully! 🍿🎊",
         }
     },
+    DeletedWithSuccess: {
+        statusCode: 200,
+        data:
+        {
+            code: "200",
+            message: "Movie created successfully! 🎊",
+        }
+    },
 }
 
 module.exports = SuccessMessages;

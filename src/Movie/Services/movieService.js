@@ -1,82 +1,76 @@
 const Movie = require("../Model/movieModel");
 const ErrorModel = require("../../Helpers/Models/errorModel");
 const CENSORSHIP = require('../../Helpers/enum');
-const { search } = require("../../routes");
 
 module.exports = {
-  async create(req, res) {
+  async create(req) {
     try {
-      const newMovie = { name, release_date, director, cast, censorship_level } = req.body;
-
-      const movie = await Movie.create(newMovie, (err) => {
-        if (err)
-          return res.status(ErrorModel.CreationFailed.statusCode).send({
-            success: false,
-            message: ErrorModel.CreationFailed.data
-          })
-      })
+        const newMovie = { name, release_date, director, cast, censorship_level } = req.body;
+        
+        const movie = await Movie.create(newMovie, (err) => { if (err) throw err })
 
       return movie;
     } catch (err) {
-      return res.status(ErrorModel.CreationFailed.statusCode).send({
-        success: false,
-        message: err
-      })
+      throw err
     }
   },
 
   async findAll(req, res) {
     try {
-      const allMovies = await Movie.find((err, result) => {
-        if (err) {
-          console.log(err);
-          throw err
-        }
-      });
+      const allMovies = await Movie.find((err) => { if (err) throw err })
+
+      if (allMovies.length < 1)
+        return res.send(ErrorModel.MovieNotFound)
 
       return res.status(200).json(allMovies);
-
-    } catch (error) {
-      console.log(error);
-      return error;
-    }
-  },
-
-  async findByName(name) {
-    try {
-      const moviesByName = await Movie.find({ name });
-
-      return moviesByName
     } catch (err) {
-      throw err;
+      throw err
     }
   },
 
-  //TODO fix search, mongo returning empty array
   async search(req, res) {
     try {
-      const queryParams = req.query.censorship_level;
+      const { censorship_level } = req.query;
 
-      console.log('QueryParam:', queryParams);
+      if (!this.validateCensorship(censorship_level)) {
+        return res.status(ErrorModel.CensorshipError.statusCode).send({
+          success: false,
+          message: `${ErrorModel.CensorshipError.data.errors[0].message}${censorship_level}.`
+        })
+      }
+      const movieByParam = await Movie.find({ censorship_level })
 
-      const movieByParam = await Movie.find({ censorship_level: queryParams }, (err, result) => {
-        if (err) {
-          return res.status(ErrorModel.MovieNotFound.statusCode).send({
-            success: false,
-            message: err
-          })
-        }
-      })
-      console.log(movieByParam);
       return res.send(movieByParam)
 
-    } catch (error) {
-      return res.status(ErrorModel.MovieNotFound.statusCode).send({
-        success: false,
-        message: ErrorModel.MovieNotFound.data
-      })
+    } catch (err) {
+      throw err
+    }
+  },
+
+  async delete(req, res) {
+    try {
+      const id = req.params.id;
+
+      if (id) {
+        const movie = await Movie.findByIdAndDelete(id, (err) => {
+          if (err)
+            res.send(ErrorModel.MovieNotFound)
+        })
+        return movie
+      }
+    } catch (err) {
+      throw err
+    }
+  },
+
+  validateCensorship(censorship_level) {
+    switch (censorship_level) {
+      case CENSORSHIP.CENSORED:
+        return true;
+      case CENSORSHIP.UNCENSORED:
+        return true;
+      default:
+        return false;
     }
   }
-
-
 }

@@ -8,7 +8,7 @@ module.exports = {
   async Create(req, res) {
     try {
       const movie = await MovieService.create(req);
-
+  
       return res.status(SuccessModel.CreatedWithSuccess.statusCode).send({
         success: true,
         message: SuccessModel.CreatedWithSuccess.data
@@ -39,6 +39,20 @@ module.exports = {
       const movieSearched = await MovieService.search(req, res)
 
       return movieSearched
+    } catch (error) {
+      return res.status(ErrorModel.MovieNotFound.statusCode).send({
+        success: false,
+        message: ErrorModel.MovieNotFound.data
+      })
+    }
+  },
+
+  async Delete(req,res){
+    try {
+      const movieDeleted = await MovieService.delete(req, res)
+      
+      res.send(SuccessModel.DeletedWithSuccess)
+
     } catch (error) {
       return res.status(ErrorModel.MovieNotFound.statusCode).send({
         success: false,
