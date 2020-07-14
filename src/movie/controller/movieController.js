@@ -1,11 +1,11 @@
-const MovieService = require("../Services/movieService");
-const SuccessModel = require('../../Helpers/Models/successModel');
-const ErrorModel = require('../../Helpers/Models/errorModel');
+const MovieService = require("../services/movieService");
+const SuccessModel = require('../../helpers/models/successModel');
+const ErrorModel = require('../../helpers/models/errorModel');
 const { search } = require("../../routes");
 
 
 module.exports = {
-  async Create(req, res) {
+  async create(req, res) {
     try {
       const movie = await MovieService.create(req);
   
@@ -21,7 +21,7 @@ module.exports = {
     }
   },
 
-  async FindAll(req, res) {
+  async findAll(req, res) {
     try {
       const allMovies = await MovieService.findAll(req, res);
 
@@ -34,11 +34,10 @@ module.exports = {
     }
   },
 
-  async Search(req,res){
+  async search(req,res){
     try {
-      const movieSearched = await MovieService.search(req, res)
-
-      return movieSearched
+      return await MovieService.search(req, res)
+      
     } catch (error) {
       return res.status(ErrorModel.MovieNotFound.statusCode).send({
         success: false,
@@ -47,9 +46,9 @@ module.exports = {
     }
   },
 
-  async Delete(req,res){
+  async delete(req,res){
     try {
-      const movieDeleted = await MovieService.delete(req, res)
+      await MovieService.delete(req, res)
       
       res.send(SuccessModel.DeletedWithSuccess)
 

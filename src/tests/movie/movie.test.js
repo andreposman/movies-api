@@ -3,11 +3,11 @@ process.env.NODE_ENV = 'test';
 const request = require('supertest');
 const Server = require('../../server');
 const mongoose = require('mongoose');
-const darkKnightFixture = require('../Models/dark.knight.fixture.json');
-const fightClubFixture = require('../Models/fight.club.fixture.json');
-const pulpFictionFixture = require('../Models/pulp.fiction.fixture.json');
-const theGodfatherFixture = require('../Models/the.godfather.fixture.json');
-const theMatrixFixture = require('../Models/the.martix.fixture.json');
+const darkKnightFixture = require('../model/dark.knight.fixture.json');
+const fightClubFixture = require('../model/fight.club.fixture.json');
+const pulpFictionFixture = require('../model/pulp.fiction.fixture.json');
+const theGodfatherFixture = require('../model/the.godfather.fixture.json');
+const theMatrixFixture = require('../model/the.martix.fixture.json');
 const chai = require('chai');
 
 require("dotenv").config();
