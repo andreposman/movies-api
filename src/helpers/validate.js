@@ -1,5 +1,5 @@
 const Validator = require('validatorjs');
-const Movie = require('../Movie/Model/movieModel');
+const Movie = require('../movie/model/movieModel');
 
 
 Validator.registerAsync('nameAvaliable', (name, attribute, req, passes) => {

@@ -1,4 +1,4 @@
-const CENSORSHIP = require('../../Helpers/enum');
+const CENSORSHIP = require('../../helpers/enum');
 
 const MovieErrors = {
   MovieNotFound: {
@@ -7,7 +7,18 @@ const MovieErrors = {
       errors: [
         {
           code: "404",
-          message: "Movie not found.",
+          message: "Sorry, movie not found.",
+        },
+      ],
+    },
+  },
+  MoviesNotCreated: {
+    statusCode: 404,
+    data: {
+      errors: [
+        {
+          code: "404",
+          message: "Sorry, there are no movies createad at the moment.",
         },
       ],
     },
@@ -34,13 +45,13 @@ const MovieErrors = {
       ],
     },
   },
-  WrongRequest: {
-    statusCode: 500,
+  InvalidId: {
+    statusCode: 400,
     data: {
       errors: [
         {
-          code: "500",
-          message: "wrong request"
+          code: "400",
+          message: "ID is invalid;"
         },
       ],
     },

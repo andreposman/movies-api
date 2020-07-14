@@ -1,5 +1,5 @@
-const Validator = require('../Helpers/validate')
-const CENSORSHIP = require('../Helpers/enum');
+const Validator = require('../helpers/validate')
+const CENSORSHIP = require('../helpers/enum');
 
 const rules = (req, res, next) => {
     const validationRules = {

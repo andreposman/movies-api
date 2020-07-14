@@ -1,16 +1,16 @@
 const express = require('express');
-const ValidateCreation = require('./Middleware/validateCreation');
-const MovieController = require('./Movie/Controller/movieController');
-const HealthcheckController = require('./Healthcheck/Controller/healthcheckController');
+const validateCreation = require('./middleware/validateCreation');
+const movieController = require('./movie/controller/movieController');
+const healthcheckController = require('./healthcheck/controller/healthcheckController');
 
 const routes = express.Router();
 
-routes.get('/movie', MovieController.FindAll)
-routes.post('/movie', ValidateCreation.rules , MovieController.Create)
-routes.delete('/movie/:id', MovieController.Delete)
-routes.get('/search', MovieController.Search)
+routes.get('/movie', movieController.findAll)
+routes.post('/movie', validateCreation.rules , movieController.create)
+routes.delete('/movie/:id', movieController.delete)
+routes.get('/search', movieController.search)
 
-routes.get('/healthcheck', HealthcheckController.health)
+routes.get('/healthcheck', healthcheckController.health)
 
 
 module.exports = routes
