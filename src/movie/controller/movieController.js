@@ -7,7 +7,7 @@ const { search } = require("../../routes");
 module.exports = {
   async create(req, res) {
     try {
-      const movie = await MovieService.create(req);
+      await MovieService.create(req);
   
       return res.status(SuccessModel.CreatedWithSuccess.statusCode).send({
         success: true,
@@ -37,7 +37,7 @@ module.exports = {
   async search(req,res){
     try {
       return await MovieService.search(req, res)
-      
+
     } catch (error) {
       return res.status(ErrorModel.MovieNotFound.statusCode).send({
         success: false,
